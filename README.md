@@ -33,7 +33,7 @@ When the ngrok window appears, press `Control + C` to exit and return to the C2 
 ![photo_2024-07-06_18-31-17](https://github.com/S3N4T0R-0X0/BEAR/assets/121706460/c552fcb6-3440-44e5-81d2-f49dafbcbc42)
 
 
-## POC for customization TTPs
+## POC For Customization TTPs
 
 The types of connection encryption for the C2 profiles in Bear were chosen based on the encryption methods used by the attackers in the actual attacks.
 
