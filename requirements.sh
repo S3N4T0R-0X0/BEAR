@@ -1,24 +1,29 @@
 #!/bin/bash
 
-if [ "$(id -u)" != "0" ]; then
-  echo '[Error]: You must run this setup script with root privileges.'
-  echo
-  exit 1
-fi
+# Update package list
+sudo apt update
 
-apt-get install -y libldap2-dev libsasl2-dev
+# Install required packages
+sudo apt-get install -y \
+    libcurl4-openssl-dev \
+    libcrypto++-dev \
+    libopencv-dev \
+    libssl-dev \
+    nlohmann-json3-dev \
+    libjsoncpp-dev
 
-cpan IO::Socket::INET MIME::Base64 Crypt::DES File::Slurp Time::HiRes HTTP::Tiny
+# Optional: Install g++ if not already installed
+sudo apt-get install -y g++
 
-if ! command -v pip &> /dev/null
-then
-    echo "pip not found, installing pip..."
-    apt-get install -y python3-pip
-fi
+echo "All required packages have been installed."
 
-pip install --user pycryptodome pyautogui pyvirtualdisplay requests secrets cryptography discord.py
+# Navigate to Profiles directory
+cd ~/BEAR-C2/Profiles
 
-echo -e "
+# Make compile.sh executable
+chmod +x compile.sh
 
+# Run compile.sh
+./compile.sh
 
-\033[0;31m[*]\033[0m" "\033[0;32mDon't forget to install ngrok\033[0m"
+echo "Compilation script executed."
