@@ -45,7 +45,7 @@ When the ngrok window appears, press `Control + C` to exit and return to the C2 
 
 The types of connection encryption for the C2 profiles in Bear were chosen based on the encryption methods used by the attackers in the actual attacks.
 
-![imageedit_4_2435083939](https://github.com/user-attachments/assets/431acb18-d97e-4c1a-94cc-cba98ab49b01)
+![imageedit_3_7181989344](https://github.com/user-attachments/assets/39bbbe75-1d04-4c22-80c1-beed436e6f7f)
 
 ________________________________________________________________________________________________________
 
