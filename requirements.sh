@@ -17,13 +17,5 @@ sudo apt-get install -y g++
 
 echo "All required packages have been installed."
 
-# Navigate to Profiles directory
-cd Profiles
-
-# Make compile.sh executable
-chmod +x compile.sh
-
-# Run compile.sh
-./compile.sh
 
 echo "Compilation script executed."
