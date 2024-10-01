@@ -18,7 +18,7 @@ sudo apt-get install -y g++
 echo "All required packages have been installed."
 
 # Navigate to Profiles directory
-cd ~/BEAR-C2/Profiles
+cd Profiles
 
 # Make compile.sh executable
 chmod +x compile.sh
