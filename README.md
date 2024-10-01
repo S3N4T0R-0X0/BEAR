@@ -26,6 +26,14 @@ chmod +x requirements.sh
 
 sudo ./requirements.sh
 
+cd Profiles
+
+chmod +x compile.sh
+
+./compile.sh
+
+cd ..
+
 python3 Bear.py
 ```
 When the ngrok window appears, press `Control + C` to exit and return to the C2 console.
