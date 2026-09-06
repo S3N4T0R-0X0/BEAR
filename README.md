@@ -147,13 +147,13 @@ The same limitation affects command responses. When a command is distributed to 
 
 The direct solution is to assign a dedicated bot to each Beacon on Telegram, or an isolated channel or bot configuration to each Beacon on Discord. This creates a one to one mapping between the Beacon and its communication path, allowing individual Beacons and their responses to be distinguished. The tradeoff is increased infrastructure and management overhead as the number of Beacons increases.
 
-These limitations are specific to using messaging platforms as C2 transport channels and are independent of the Beacon payload itself
+These limitations are specific to using messaging platforms as C2 transport channels and are independent of the Beacon payload itself.
 
 **● Practical Impact**
 
 The message size limitation reduces the amount of data that can be transferred at once, which can increase the time required to send commands and receive their output
 
-Using a shared Telegram bot or Discord channel causes multiple Beacons to appear as a single Beacon in the C2 table, while commands are delivered to all Beacons using that bot or channel and responses cannot be reliably attributed to a specific Beacon
+Using a shared Telegram bot or Discord channel causes multiple Beacons to appear as a single Beacon in the C2 table, while commands are delivered to all Beacons using that bot or channel and responses cannot be reliably attributed to a specific Beacon.
 
 ---
 
