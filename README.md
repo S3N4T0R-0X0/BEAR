@@ -40,6 +40,51 @@ Every time an operator needs to test a specific **encryption scheme** with a par
 This is why **BEAR C2** was developed to provide **adversary simulation** with full customization through the new listener, allowing seamless configuration of  `connection protocols, encryption, exfiltration,` and automated loading techniques. This ensures that simulations can accurately reflect real **APT intrusions** without the need to build custom scripts for every scenario.
 
 
+## Reaper Node Payload Samples
+
+Reaper Node provides C++ payload samples `/Stagers-Loaders/Reaper Node Samples/` that can be used as customizable templates for environments where a pre-generated payload is not required. The samples contain the core configuration fields required to establish communication with the corresponding Reaper Node instance.
+
+Before compiling the payload, the required connection and transport parameters must be configured to match the Reaper Node configuration.
+
+### Payload Configuration
+
+The payload configuration should provide input fields for the following parameters:
+
+* **Authentication ID**
+  The identifier used to associate the payload with the configured Reaper Node instance.
+
+* **Server Host**
+  The IP address or hostname of the Reaper Node endpoint.
+
+* **Server Port**
+  The network port exposed by the Reaper Node for the selected communication protocol.
+
+* **Encryption Key**
+  Required when the selected transport uses encryption. The value must match the encryption configuration used by the Reaper Node. If encryption is disabled, this field is not required.
+
+* **User-Agent**
+  The HTTP client identification value used when establishing the initial HTTP/HTTPS communication. The payload should use a User-Agent supported by the corresponding Reaper Node configuration.
+
+The User-Agent does not need to be identical across different Reaper Node configurations. A payload can use any User-Agent defined as supported by the selected Reaper Node profile, as long as the resulting configuration is compatible with the server-side transport settings.
+
+### Example Configuration
+
+The following example shows a sample HTTPS transport configuration with authentication, server addressing, encryption, and User-Agent parameters:
+
+```cpp
+const string AUTH_ID = "YOUR_AUTH_ID";
+const string SERVER_HOST = "YOUR_SERVER_HOST";
+const int SERVER_PORT = YOUR_SERVER_PORT;
+const string KEY = "YOUR_ENCRYPTION_KEY";
+const string DEFAULT_USER_AGENT = "YOUR_USER_AGENT";
+bool VERIFY_SSL = true;
+```
+
+This configuration represents an HTTPS transport with encryption enabled. The values shown above are placeholders and should be replaced with the parameters defined by the corresponding Reaper Node configuration.
+
+The C++ sample is intended to provide a starting point for customization. Users can modify the configuration and transport-related parameters according to the Reaper Node profile they are testing, then compile the customized payload for their authorized simulation environment.
+
+
 The Listeners Table provides a centralized overview of all active and configured C2 listeners. It displays essential details such as **listener name, address, network protocol, encryption method, exfiltration profile**, and current status (Active or Stopped/Disconnected). From this interface, operators can start, stop, rename, or remove listeners with ease. It also offers quick access to encryption keys and authentication IDs for managing beacon communication. This table serves as the command hub for orchestrating and monitoring your C2 infrastructure.
 
 <img width="999" height="486" alt="Screenshot From 2026-08-26 15-15-37" src="https://github.com/user-attachments/assets/123ceba6-fa3f-4c19-9286-d2ffc8c1909c" />
