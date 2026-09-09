@@ -226,9 +226,6 @@ For each application, open Bot settings and generate the required Bot Token.
 
 <img width="1366" height="626" alt="Screenshot From 2026-09-09 17-00-12" src="https://github.com/user-attachments/assets/97a78cea-84b3-4fbd-82df-0e9f17885338" />
 
-
-Keep the Bot Tokens private and use dedicated test applications for authorized adversary simulation.
-
 ### 2. Configure Discord Bot Permissions
 
 Open the Bot configuration in the Discord Developer Portal and enable Message Content Intent.
@@ -257,7 +254,7 @@ The same Channel ID is used by the C2 configuration and the Discord Agent so bot
 
 Open the Discord Agent sample located at:
 
-"Stagers-Loaders/C2 Channel Agent Samples/Discord Agent.cpp"
+`"Stagers-Loaders/C2 Channel Agent Samples/Discord Agent.cpp"`
 
 The sample provides configuration fields for the Discord Bot Token, Channel ID, and Bot User ID:
 
@@ -272,7 +269,6 @@ The "BOT_USER_ID" identifies the Bot account used by the payload. Discord User I
 In the Discord Channel configuration inside BEAR-C2, provide the corresponding C2 Bot Token, Channel ID, and Listener Name.
 
 <img width="927" height="230" alt="Screenshot From 2026-09-09 10-26-11" src="https://github.com/user-attachments/assets/4d88d0d4-d901-4706-ba53-67f3dac42bc2" />
-
 
 The C2 Bot and Payload Bot use the same Discord channel as the communication path, while each side authenticates using its own Bot Token.
 
