@@ -167,7 +167,7 @@ The **Bot Token** is required by the Telegram Agent to authenticate with the Tel
 
 Open the official Telegram API development portal and create a new application.
 
-Generate the following credentials: https://my.telegram.org/auth?to=apps
+Generate the following credentials: https://my.telegram.org/apps
 
 * `API ID`
 * `API Hash`
