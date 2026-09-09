@@ -208,6 +208,79 @@ Since Discord does not allow bots to directly communicate with other bots, using
 
 <img width="3472" height="1784" alt="discord" src="https://github.com/user-attachments/assets/439f79ae-58ed-4846-b332-ab567d0c0e78" />
 
+
+## How to Use the Discord Agent
+
+The Discord Agent uses the Discord Gateway and API as the communication layer between the payload and BEAR-C2. The setup requires Discord Bot applications, a dedicated text channel, the required bot permissions, and the corresponding values configured in the C++ agent sample.
+
+### 1. Create the Discord Bot Applications
+
+Open the official "Discord Developer Portal" (https://discord.com/developers/applications) and create the Discord Bot applications required for the simulation.
+
+The Discord C2 channel uses two Bot identities:
+
+- C2 Bot used by BEAR-C2
+- Payload Bot used by the Discord Agent
+
+For each application, open Bot settings and generate the required Bot Token.
+
+<img width="1366" height="626" alt="Screenshot From 2026-09-09 17-00-12" src="https://github.com/user-attachments/assets/97a78cea-84b3-4fbd-82df-0e9f17885338" />
+
+
+Keep the Bot Tokens private and use dedicated test applications for authorized adversary simulation.
+
+### 2. Configure Discord Bot Permissions
+
+Open the Bot configuration in the Discord Developer Portal and enable Message Content Intent.
+
+The Bot must also have the required permissions for the Discord text channel used by the simulation, including:
+
+- "View Channel"
+- "Send Messages"
+- "Read Message History"
+
+These permissions allow the Bot to access messages from the configured channel and send messages through the same communication path. Discord requires the Message Content Intent for applications that need to receive message content through the API.
+
+"Discord Bot Permissions" (path/to/discord-bot-permissions.png)
+
+### 3. Create and Configure the Discord Channel
+
+Create a dedicated private text channel for the Discord Agent and add both Bot applications to the channel.
+
+Copy the Channel ID with Discord Developer Mode enabled. Discord provides the Channel ID through the Copy Channel ID option when Developer Mode is enabled.
+
+"Discord Channel Configuration" (path/to/discord-channel-configuration.png)
+
+The same Channel ID is used by the C2 configuration and the Discord Agent so both sides communicate through the same Discord channel.
+
+### 4. Configure the Discord Agent Sample
+
+Open the Discord Agent sample located at:
+
+"Stagers-Loaders/C2 Channel Agent Samples/Discord Agent.cpp"
+
+The sample provides configuration fields for the Discord Bot Token, Channel ID, and Bot User ID:
+
+#define BOT_TOKEN "YOUR_BOT_TOKEN_HERE"
+#define CHANNEL_ID "YOUR_CHANNEL_ID_HERE"
+#define BOT_USER_ID "YOUR_BOT_USER_ID_HERE"
+
+Replace the placeholders with the values belonging to the Payload Bot and the dedicated Discord channel.
+
+"Discord Agent C++ Configuration" (path/to/discord-agent-cpp.png)
+
+The "BOT_USER_ID" identifies the Bot account used by the payload. Discord User IDs can be copied after enabling Developer Mode.
+
+### 5. Configure the Discord Channel in BEAR-C2
+
+In the Discord Channel configuration inside BEAR-C2, provide the corresponding C2 Bot Token, Channel ID, and Listener Name.
+
+"BEAR-C2 Discord Configuration" (path/to/bear-c2-discord-configuration.png)
+
+The C2 Bot and Payload Bot use the same Discord channel as the communication path, while each side authenticates using its own Bot Token.
+
+After the Discord configuration and payload sample have been completed, compile the C++ Agent for use in the authorized adversary simulation environment.
+
 ---
 > ⚠️ **NOTE:** C2 Channel Limitations
 
