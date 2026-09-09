@@ -244,13 +244,14 @@ These permissions allow the Bot to access messages from the configured channel a
 
 Create a dedicated private text channel for the Discord Agent and add both Bot applications to the channel.
 
+Make sure `the same permissions configured in the Discord Developer Portal` are also enabled for the Bot applications in the channel.
+
 Copy the `Channel ID` with Discord Developer Mode enabled. Discord provides the Channel ID through the Copy Channel ID option `when Developer Mode is enabled.`
 
 <img width="1366" height="623" alt="Screenshot From 2026-09-09 17-11-04" src="https://github.com/user-attachments/assets/2b6b3d49-1092-4cf9-86dd-b0ff62612610" />
 
 The `same Channel ID is used by the C2 configuration and the Discord Agent` so both sides communicate through the same Discord channel.
 
-Make sure the same permissions configured in the Discord Developer Portal are also enabled for the Bot applications in the channel.
 
 ### 4. Configure the Discord Agent Sample
 
