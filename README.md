@@ -217,7 +217,7 @@ The Discord Agent uses the Discord Gateway and API as the communication layer be
 
 Open the official "Discord Developer Portal" (https://discord.com/developers/applications) and create the Discord Bot applications required for the simulation.
 
-The Discord C2 channel uses two Bot identities:
+The Discord C2 channel `uses two Bot identities:`
 
 - C2 Bot used by BEAR-C2
 - Payload Bot used by the Discord Agent
@@ -228,7 +228,7 @@ For each application, open Bot settings and generate the required Bot Token.
 
 ### 2. Configure Discord Bot Permissions
 
-Open the Bot configuration in the Discord Developer Portal and enable Message Content Intent.
+Open the `Bot configuration in the Discord Developer Portal` and enable Message Content Intent.
 
 The Bot must also have the required permissions for the Discord text channel used by the simulation, including:
 
@@ -244,11 +244,13 @@ These permissions allow the Bot to access messages from the configured channel a
 
 Create a dedicated private text channel for the Discord Agent and add both Bot applications to the channel.
 
-Copy the Channel ID with Discord Developer Mode enabled. Discord provides the Channel ID through the Copy Channel ID option when Developer Mode is enabled.
+Copy the `Channel ID` with Discord Developer Mode enabled. Discord provides the Channel ID through the Copy Channel ID option `when Developer Mode is enabled.`
 
 <img width="1366" height="623" alt="Screenshot From 2026-09-09 17-11-04" src="https://github.com/user-attachments/assets/2b6b3d49-1092-4cf9-86dd-b0ff62612610" />
 
-The same Channel ID is used by the C2 configuration and the Discord Agent so both sides communicate through the same Discord channel.
+The `same Channel ID is used by the C2 configuration and the Discord Agent` so both sides communicate through the same Discord channel.
+
+Make sure the same permissions configured in the Discord Developer Portal are also enabled for the Bot applications in the channel.
 
 ### 4. Configure the Discord Agent Sample
 
@@ -266,7 +268,7 @@ The "BOT_USER_ID" identifies the Bot account used by the payload. Discord User I
 
 ### 5. Configure the Discord Channel in BEAR-C2
 
-In the Discord Channel configuration inside BEAR-C2, provide the corresponding C2 Bot Token, Channel ID, and Listener Name.
+In the Discord Channel configuration inside BEAR-C2, provide the corresponding `C2 Bot Token, Channel ID, and Listener Name.`
 
 <img width="927" height="230" alt="Screenshot From 2026-09-09 10-26-11" src="https://github.com/user-attachments/assets/4d88d0d4-d901-4706-ba53-67f3dac42bc2" />
 
