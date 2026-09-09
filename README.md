@@ -261,13 +261,9 @@ Open the Discord Agent sample located at:
 
 The sample provides configuration fields for the Discord Bot Token, Channel ID, and Bot User ID:
 
-#define BOT_TOKEN "YOUR_BOT_TOKEN_HERE"
-#define CHANNEL_ID "YOUR_CHANNEL_ID_HERE"
-#define BOT_USER_ID "YOUR_BOT_USER_ID_HERE"
+<img width="901" height="130" alt="Screenshot From 2026-09-09 10-18-05" src="https://github.com/user-attachments/assets/2badcff7-7a4a-4226-9b65-6305445f1fe4" />
 
 Replace the placeholders with the values belonging to the Payload Bot and the dedicated Discord channel.
-
-<img width="901" height="130" alt="Screenshot From 2026-09-09 10-18-05" src="https://github.com/user-attachments/assets/2badcff7-7a4a-4226-9b65-6305445f1fe4" />
 
 The "BOT_USER_ID" identifies the Bot account used by the payload. Discord User IDs can be copied after enabling Developer Mode.
 
