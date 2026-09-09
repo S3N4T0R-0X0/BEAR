@@ -249,7 +249,7 @@ Create a dedicated private text channel for the Discord Agent and add both Bot a
 
 Copy the Channel ID with Discord Developer Mode enabled. Discord provides the Channel ID through the Copy Channel ID option when Developer Mode is enabled.
 
-"Discord Channel Configuration" (path/to/discord-channel-configuration.png)
+<img width="1366" height="623" alt="Screenshot From 2026-09-09 17-11-04" src="https://github.com/user-attachments/assets/2b6b3d49-1092-4cf9-86dd-b0ff62612610" />
 
 The same Channel ID is used by the C2 configuration and the Discord Agent so both sides communicate through the same Discord channel.
 
@@ -267,7 +267,7 @@ The sample provides configuration fields for the Discord Bot Token, Channel ID, 
 
 Replace the placeholders with the values belonging to the Payload Bot and the dedicated Discord channel.
 
-"Discord Agent C++ Configuration" (path/to/discord-agent-cpp.png)
+<img width="901" height="130" alt="Screenshot From 2026-09-09 10-18-05" src="https://github.com/user-attachments/assets/2badcff7-7a4a-4226-9b65-6305445f1fe4" />
 
 The "BOT_USER_ID" identifies the Bot account used by the payload. Discord User IDs can be copied after enabling Developer Mode.
 
