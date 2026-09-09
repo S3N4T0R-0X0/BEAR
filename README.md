@@ -275,7 +275,8 @@ The "BOT_USER_ID" identifies the Bot account used by the payload. Discord User I
 
 In the Discord Channel configuration inside BEAR-C2, provide the corresponding C2 Bot Token, Channel ID, and Listener Name.
 
-"BEAR-C2 Discord Configuration" (path/to/bear-c2-discord-configuration.png)
+<img width="927" height="230" alt="Screenshot From 2026-09-09 10-26-11" src="https://github.com/user-attachments/assets/4d88d0d4-d901-4706-ba53-67f3dac42bc2" />
+
 
 The C2 Bot and Payload Bot use the same Discord channel as the communication path, while each side authenticates using its own Bot Token.
 
