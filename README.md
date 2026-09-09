@@ -241,7 +241,7 @@ The Bot must also have the required permissions for the Discord text channel use
 
 These permissions allow the Bot to access messages from the configured channel and send messages through the same communication path. Discord requires the Message Content Intent for applications that need to receive message content through the API.
 
-"Discord Bot Permissions" (path/to/discord-bot-permissions.png)
+<img width="1366" height="623" alt="Screenshot From 2026-09-09 17-05-44" src="https://github.com/user-attachments/assets/e5eee337-90b4-4a71-ba1e-ce1baab5bb9c" />
 
 ### 3. Create and Configure the Discord Channel
 
